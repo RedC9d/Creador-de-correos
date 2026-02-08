@@ -1,14 +1,14 @@
 // Service Worker for Neuroterp Email Creator PWA
 const CACHE_NAME = 'neuroterp-email-creator-v1';
 const ASSETS_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/styles.css',
-    '/script.js',
-    '/templates.js',
-    '/manifest.json',
-    '/icons/icon-192.png',
-    '/icons/icon-512.png',
+    './',
+    'index.html',
+    'styles.css',
+    'script.js',
+    'templates.js',
+    'manifest.json',
+    'icons/icon-192.png',
+    'icons/icon-512.png',
     'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
 ];
 

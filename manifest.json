@@ -33,7 +33,7 @@
       "name": "Nueva Presentación",
       "short_name": "Presentación",
       "description": "Crear email de presentación inicial",
-      "url": "/?template=presentacion-inicial",
+      "url": "index.html?template=presentacion-inicial",
       "icons": [
         {
           "src": "icons/icon-192.png",
