@@ -2,8 +2,8 @@
   "name": "Neuroterp Email Creator",
   "short_name": "Neuroterp",
   "description": "Creador profesional de plantillas de correo electrónico para Neuroterp™ S.A.S.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#2dd4bf",
@@ -22,7 +22,11 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "productivity", "utilities"],
+  "categories": [
+    "business",
+    "productivity",
+    "utilities"
+  ],
   "screenshots": [],
   "shortcuts": [
     {

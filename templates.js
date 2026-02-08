@@ -449,5 +449,117 @@ const emailTemplates = [
 </body>
 </html>`;
         }
+    },
+    {
+        id: 'correo-personalizado',
+        name: '📝 Correo Personalizado',
+        description: 'Crea un correo desde cero con contenido libre',
+        fields: [
+            {
+                id: 'titulo',
+                label: 'Título del Correo',
+                type: 'text',
+                placeholder: 'Ej: Información importante sobre...',
+                defaultValue: 'Título del Correo'
+            },
+            {
+                id: 'saludo',
+                label: 'Saludo',
+                type: 'text',
+                placeholder: 'Ej: Hola Juan,',
+                defaultValue: 'Hola,'
+            },
+            {
+                id: 'contenido',
+                label: 'Contenido del Correo',
+                type: 'textarea',
+                placeholder: 'Escribe aquí todo el cuerpo del mensaje...',
+                defaultValue: 'Este es un mensaje personalizado creado desde la aplicación.'
+            },
+            {
+                id: 'lista',
+                label: 'Lista de puntos (opcional)',
+                type: 'textarea',
+                placeholder: 'Un punto por línea...',
+                defaultValue: ''
+            },
+            {
+                id: 'texto_final',
+                label: 'Texto final / Despedida',
+                type: 'textarea',
+                placeholder: 'Ej: Quedo atento a tus comentarios.',
+                defaultValue: 'Quedo atento a tus comentarios.'
+            }
+        ],
+        generateHTML: (data) => {
+            const listaItems = data.lista
+                ? `<ul style="margin: 20px 0; padding-left: 20px; font-size: 15px;">${data.lista.split('\n').filter(l => l.trim()).map(l => `<li style="margin-bottom: 10px;">${l.trim()}</li>`).join('')}</ul>`
+                : '';
+
+            // Handle line breaks in content
+            const contentHTML = data.contenido.replace(/\n/g, '<br>');
+
+            return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuroterp™ - Correo Personalizado</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f5f5f5;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
+        <tr>
+            <td align="center" style="padding: 20px 0;">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    
+                    <!-- Header with Logo -->
+                    <tr>
+                        <td align="center" style="padding: 40px 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                            <img src="https://neuroterp.com/images/logoNeuroterp3.png" alt="Neuroterp™" style="max-width: 200px; height: auto;" />
+                        </td>
+                    </tr>
+                    
+                    <!-- Body Content -->
+                    <tr>
+                        <td style="padding: 40px 30px; color: #333333; line-height: 1.8;">
+                            <h2 style="color: #2c5282; margin: 0 0 20px 0; font-size: 24px;">${data.titulo}</h2>
+                            
+                            <p style="font-size: 16px; margin-bottom: 20px;">
+                                ${data.saludo}
+                            </p>
+                            
+                            <div style="font-size: 15px; margin-bottom: 20px;">
+                                ${contentHTML}
+                            </div>
+                            
+                            ${listaItems}
+                            
+                            <p style="font-size: 15px; margin-top: 25px;">
+                                ${data.texto_final}
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer/Signature -->
+                    <tr>
+                        <td style="padding: 30px; background-color: #f8f9fa; border-top: 3px solid #2dd4bf;">
+                            <p style="font-size: 14px; line-height: 1.6; margin: 0; color: #333;">
+                                Atentamente,<br>
+                                <strong style="color: #2c5282; display: block; margin-top: 10px;">Luisa Alvarez</strong>
+                                <span style="color: #666;">Asesora Comercial | Neuroterp™ S.A.S.</span><br>
+                                <span style="color: #666;">WhatsApp: 322 369 4572</span><br>
+                                <a href="https://neuroterp.com" style="color: #2dd4bf; text-decoration: none;">https://neuroterp.com</a>
+                            </p>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>`;
+        }
     }
 ];
