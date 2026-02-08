@@ -1,5 +1,5 @@
 // Service Worker for Neuroterp Email Creator PWA
-const CACHE_NAME = 'neuroterp-email-creator-v1';
+const CACHE_NAME = 'neuroterp-email-creator-v2';
 const ASSETS_TO_CACHE = [
     './',
     'index.html',
