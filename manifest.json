@@ -8,7 +8,14 @@
   "background_color": "#0f172a",
   "theme_color": "#2dd4bf",
   "orientation": "portrait-primary",
-  "icons": [],
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
   "categories": [
     "business",
     "productivity",
