@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuroterp™ - Creador de Plantillas de Email</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Creador profesional de plantillas de correo electrónico para Neuroterp™ S.A.S.">
+    <meta name="theme-color" content="#2dd4bf">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Neuroterp">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1>
+                    <span class="brand-icon">✉️</span>
+                    Neuroterp™ Creador de Emails
+                </h1>
+                <p class="subtitle">Creador de Plantillas Profesionales</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="section">
+                    <h3>📋 Plantillas</h3>
+                    <div class="template-list" id="templateList">
+                        <!-- Templates will be loaded here by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>⚙️ Opciones</h3>
+                    <button class="btn btn-secondary" id="copyHtmlBtn">
+                        📋 Copiar HTML
+                    </button>
+                    <button class="btn btn-secondary" id="downloadHtmlBtn">
+                        💾 Descargar HTML
+                    </button>
+                    <button class="btn btn-secondary" id="resetBtn">
+                        🔄 Resetear
+                    </button>
+                </div>
+
+                <div class="section">
+                    <h3>📄 Recursos</h3>
+                    <div class="resource-info">
+                        <p><strong>Logo:</strong> ✅ Configurado online</p>
+                        <p><strong>Catálogo:</strong> MP.pdf</p>
+                        <small>El logo se carga automáticamente desde neuroterp.com. Solo necesitas el archivo MP.pdf
+                            para adjuntar a los emails.</small>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Editor Area -->
+            <section class="editor-area">
+                <div class="editor-header">
+                    <h2 id="currentTemplateName">Selecciona una plantilla</h2>
+                    <div class="editor-tabs">
+                        <button class="tab-btn active" data-tab="edit">✏️ Editar</button>
+                        <button class="tab-btn" data-tab="preview">👁️ Vista Previa</button>
+                    </div>
+                </div>
+
+                <!-- Edit Tab -->
+                <div class="tab-content active" id="editTab">
+                    <div class="editor-form" id="editorForm">
+                        <p class="empty-state">Selecciona una plantilla para comenzar a editar</p>
+                    </div>
+                </div>
+
+                <!-- Preview Tab -->
+                <div class="tab-content" id="previewTab">
+                    <div class="preview-container">
+                        <div class="email-preview" id="emailPreview">
+                            <p class="empty-state">La vista previa aparecerá aquí</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Scripts -->
+    <script src="templates.js"></script>
+    <script src="script.js"></script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        // Register Service Worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker registered successfully:', registration.scope);
+
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New service worker available, show update notification
+                                    if (confirm('Nueva versión disponible. ¿Actualizar ahora?')) {
+                                        newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                        window.location.reload();
+                                    }
+                                }
+                            });
+                        });
+                    })
+                    .catch((error) => {
+                        console.log('❌ Service Worker registration failed:', error);
+                    });
+            });
+        }
+
+        // Listen for install prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('💡 Install prompt available');
+            e.preventDefault();
+            deferredPrompt = e;
+
+            // Show install notification after 3 seconds
+            setTimeout(() => {
+                if (deferredPrompt && !window.matchMedia('(display-mode: standalone)').matches) {
+                    showInstallToast();
+                }
+            }, 3000);
+        });
+
+        function showInstallToast() {
+            const toast = document.getElementById('toast');
+            if (toast) {
+                toast.innerHTML = '💡 ¡Puedes instalar esta app! <button onclick="installPWA()" style="margin-left: 10px; padding: 5px 10px; border: none; background: white; color: #2dd4bf; border-radius: 5px; font-weight: bold; cursor: pointer;">Instalar</button>';
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 10000);
+            }
+        }
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ PWA installation accepted');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        // Detect if running as installed PWA
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                console.log('🚀 Running as installed PWA');
+            }
+        });
+    </script>
+</body>
+
+</html>

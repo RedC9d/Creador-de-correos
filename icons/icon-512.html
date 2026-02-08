@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            margin: 0;
+            width: 512px;
+            height: 512px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        .envelope {
+            font-size: 220px;
+            filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .leaf {
+            position: absolute;
+            bottom: -20px;
+            right: 60px;
+            font-size: 64px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="envelope">✉️</div>
+        <div class="leaf">🌿</div>
+    </div>
+</body>
+
+</html>

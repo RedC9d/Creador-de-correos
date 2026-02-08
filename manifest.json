@@ -1,0 +1,43 @@
+{
+  "name": "Neuroterp Email Creator",
+  "short_name": "Neuroterp",
+  "description": "Creador profesional de plantillas de correo electrónico para Neuroterp™ S.A.S.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2dd4bf",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Nueva Presentación",
+      "short_name": "Presentación",
+      "description": "Crear email de presentación inicial",
+      "url": "/?template=presentacion-inicial",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "lang": "es-CO",
+  "dir": "ltr"
+}
