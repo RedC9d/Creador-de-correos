@@ -1,8 +1,10 @@
 :root {
-    --primary: #2dd4bf;
-    --primary-dark: #14b8a6;
-    --secondary: #8b5cf6;
+    /* Paleta Neuroterp */
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --secondary: #0ea5e9;
     --accent: #f59e0b;
+    --gold: #fbbf24;
     --bg-dark: #0f172a;
     --bg-card: #1e293b;
     --bg-input: #334155;
@@ -61,6 +63,28 @@ body {
 .header-content {
     position: relative;
     z-index: 1;
+}
+
+.header-logo-title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.app-logo {
+    height: 80px;
+    width: auto;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+}
+
+.header-logo-title h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.header-logo-title .subtitle {
+    margin: 5px 0 0 0;
 }
 
 .app-header h1 {
