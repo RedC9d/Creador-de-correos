@@ -1,31 +1,49 @@
 @echo off
 :: Neuroterp Email Creator - Instalador
-:: Este script abre la aplicación en modo PWA
+:: Este script crea un acceso directo en el escritorio
 
 title Instalando Neuroterp Email Creator...
 
 echo.
 echo ========================================
 echo   Neuroterp Email Creator
-echo   Instalador v1.0
+echo   Instalador v2.0
 echo ========================================
 echo.
-echo Abriendo la aplicacion...
+echo Creando acceso directo en el escritorio...
 echo.
 
-:: Intentar abrir con Microsoft Edge (recomendado para PWAs)
-start msedge --app=https://redc9d.github.io/Creador-de-correos/ --window-size=1400,900
+:: Crear acceso directo usando PowerShell
+powershell -Command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut('%USERPROFILE%\Desktop\Neuroterp Email Creator.lnk'); $Shortcut.TargetPath = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'; $Shortcut.Arguments = '--app=https://redc9d.github.io/Creador-de-correos/ --window-size=1400,900'; $Shortcut.IconLocation = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe,0'; $Shortcut.Description = 'Neuroterp Email Creator - Plantillas Profesionales'; $Shortcut.Save()"
 
-:: Esperar 3 segundos
-timeout /t 3 /nobreak >nul
+:: Verificar si se creó correctamente
+if exist "%USERPROFILE%\Desktop\Neuroterp Email Creator.lnk" (
+    echo.
+    echo ========================================
+    echo   INSTALACION EXITOSA
+    echo ========================================
+    echo.
+    echo   El acceso directo se ha creado en tu escritorio.
+    echo   Ahora puedes hacer doble clic en:
+    echo.
+    echo   "Neuroterp Email Creator"
+    echo.
+    echo   para abrir la aplicacion directamente.
+    echo.
+    echo ========================================
+    
+    :: Abrir la aplicación
+    echo.
+    echo Abriendo la aplicacion...
+    start msedge --app=https://redc9d.github.io/Creador-de-correos/ --window-size=1400,900
+    timeout /t 2 /nobreak >nul
+) else (
+    echo.
+    echo ERROR: No se pudo crear el acceso directo.
+    echo Por favor, ejecuta este archivo como Administrador.
+    echo.
+)
 
-echo.
-echo La aplicacion se ha abierto en Microsoft Edge.
-echo.
-echo IMPORTANTE:
-echo - Haz clic en el icono de instalacion (+) en la barra de direcciones
-echo - Selecciona "Instalar" para tener la app permanentemente
-echo - La app aparecera en tu menu de Inicio de Windows
 echo.
 echo Presiona cualquier tecla para cerrar esta ventana...
 pause >nul
