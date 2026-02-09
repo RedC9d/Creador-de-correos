@@ -34,6 +34,9 @@
                         <p class="subtitle">Plantillas Profesionales Neuroterp™</p>
                     </div>
                 </div>
+                <button class="btn btn-install" id="installBtn" style="display: none;">
+                    📥 Instalar App
+                </button>
             </div>
         </header>
 
@@ -108,8 +111,20 @@
     <script src="templates.js?v=4"></script>
     <script src="script.js?v=4"></script>
 
-    <!-- Service Worker Desactivado Temporalmente para forzar carga -->
-    <!-- <script src="sw-v3.js"></script> -->
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw-v3.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 
 </html>

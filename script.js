@@ -1,6 +1,7 @@
 // Global State
 let currentTemplate = null;
 let formData = {};
+let deferredPrompt = null;
 
 // DOM Elements
 const templateList = document.getElementById('templateList');
@@ -10,11 +11,34 @@ const currentTemplateName = document.getElementById('currentTemplateName');
 const editTab = document.getElementById('editTab');
 const previewTab = document.getElementById('previewTab');
 const toast = document.getElementById('toast');
+const installBtn = document.getElementById('installBtn');
+
+// PWA Install Logic
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    // Show the install button
+    installBtn.style.display = 'block';
+    console.log('PWA installation prompt available');
+});
+
+// Handle successful installation
+window.addEventListener('appinstalled', () => {
+    // Hide the install button
+    installBtn.style.display = 'none';
+    // Clear the deferredPrompt
+    deferredPrompt = null;
+    showToast('✅ App instalada exitosamente');
+    console.log('PWA was installed');
+});
 
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
     loadTemplates();
     setupEventListeners();
+    setupPWAInstall();
 });
 
 // Load Templates into Sidebar
@@ -139,6 +163,37 @@ function setupEventListeners() {
 
     // Reset button
     document.getElementById('resetBtn').addEventListener('click', resetForm);
+}
+
+// Setup PWA Install
+function setupPWAInstall() {
+    // Install button click handler
+    if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                showToast('⚠️ La app ya está instalada o no está disponible para instalación', 'error');
+                return;
+            }
+
+            // Show the install prompt
+            deferredPrompt.prompt();
+
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredPrompt.userChoice;
+
+            if (outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+                showToast('✅ Instalando la aplicación...');
+            } else {
+                console.log('User dismissed the install prompt');
+                showToast('ℹ️ Instalación cancelada');
+            }
+
+            // Clear the deferredPrompt so it can only be used once
+            deferredPrompt = null;
+            installBtn.style.display = 'none';
+        });
+    }
 }
 
 // Switch Tab
