@@ -171,8 +171,21 @@ function setupPWAInstall() {
     if (installBtn) {
         installBtn.addEventListener('click', async () => {
             if (!deferredPrompt) {
-                showToast('💡 Usa el menú de Edge (⋮) y selecciona "Instalar Neuroterp"', 'info');
-                console.log('Para instalar: Edge menu (⋮) → Aplicaciones → Instalar este sitio como una aplicación');
+                // FALLBACK: Si no hay prompt nativo, descargar el instalador .bat
+                showToast('⬇️ Descargando instalador para Windows...', 'info');
+
+                const link = document.createElement('a');
+                link.href = 'Instalar-Neuroterp.bat';
+                link.download = 'Instalar-Neuroterp.bat';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                setTimeout(() => {
+                    showToast('📂 Ejecuta el archivo descargado para instalar', 'success');
+                }, 2000);
+
+                console.log('Triggered fallback download of Instalar-Neuroterp.bat');
                 return;
             }
 
