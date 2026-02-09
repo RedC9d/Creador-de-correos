@@ -17,10 +17,8 @@
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest-v3.json">
 
-    <!-- Icons -->
-
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="styles.css?v=4">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
@@ -105,83 +103,11 @@
     <div class="toast" id="toast"></div>
 
     <!-- Scripts -->
-    <script src="templates.js?v=3"></script>
-    <script src="script.js?v=3"></script>
+    <script src="templates.js?v=4"></script>
+    <script src="script.js?v=4"></script>
 
-    <!-- PWA Service Worker Registration -->
-    <script>
-        // Register Service Worker for PWA functionality
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw-v3.js')
-                    .then((registration) => {
-                        console.log('✅ Service Worker registered successfully:', registration.scope);
-
-                        // Check for updates
-                        registration.addEventListener('updatefound', () => {
-                            const newWorker = registration.installing;
-                            newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    // New service worker available, show update notification
-                                    if (confirm('Nueva versión disponible. ¿Actualizar ahora?')) {
-                                        newWorker.postMessage({ type: 'SKIP_WAITING' });
-                                        window.location.reload();
-                                    }
-                                }
-                            });
-                        });
-                    })
-                    .catch((error) => {
-                        console.log('❌ Service Worker registration failed:', error);
-                    });
-            });
-        }
-
-        // Listen for install prompt
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('💡 Install prompt available');
-            e.preventDefault();
-            deferredPrompt = e;
-
-            // Show install notification after 3 seconds
-            setTimeout(() => {
-                if (deferredPrompt && !window.matchMedia('(display-mode: standalone)').matches) {
-                    showInstallToast();
-                }
-            }, 3000);
-        });
-
-        function showInstallToast() {
-            const toast = document.getElementById('toast');
-            if (toast) {
-                toast.innerHTML = '💡 ¡Puedes instalar esta app! <button onclick="installPWA()" style="margin-left: 10px; padding: 5px 10px; border: none; background: white; color: #2dd4bf; border-radius: 5px; font-weight: bold; cursor: pointer;">Instalar</button>';
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 10000);
-            }
-        }
-
-        function installPWA() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('✅ PWA installation accepted');
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        }
-
-        // Detect if running as installed PWA
-        window.addEventListener('DOMContentLoaded', () => {
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                console.log('🚀 Running as installed PWA');
-            }
-        });
-    </script>
+    <!-- Service Worker Desactivado Temporalmente para forzar carga -->
+    <!-- <script src="sw-v3.js"></script> -->
 </body>
 
 </html>
