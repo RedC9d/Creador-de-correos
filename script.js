@@ -171,7 +171,8 @@ function setupPWAInstall() {
     if (installBtn) {
         installBtn.addEventListener('click', async () => {
             if (!deferredPrompt) {
-                showToast('⚠️ La app ya está instalada o no está disponible para instalación', 'error');
+                showToast('💡 Usa el menú de Edge (⋮) y selecciona "Instalar Neuroterp"', 'info');
+                console.log('Para instalar: Edge menu (⋮) → Aplicaciones → Instalar este sitio como una aplicación');
                 return;
             }
 
