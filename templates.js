@@ -66,8 +66,8 @@ const emailTemplates = [
                             </p>
                             
                             <ul style="margin: 20px 0; padding-left: 20px; font-size: 15px;">
-                                <li style="margin-bottom: 10px;"><strong>Aceites Esenciales:</strong> Menta, Romero, Tomillo, Lavanda y Eucalipto, y más. (Consulta)</li>
-                                <li style="margin-bottom: 10px;"><strong>Absolutos:</strong> Vainilla Premium, Cacao, Café, Jazmín, Rosas, Canela y Clavo de Olor y más (consulta)</li>
+                                <li style="margin-bottom: 10px;"><strong>Aceites Esenciales:</strong> Menta, Romero, Tomillo, Lavanda, Eucalipto, y más. (Consulta)</li>
+                                <li style="margin-bottom: 10px;"><strong>Absolutos:</strong> Vainilla Premium, Cacao, Café, Jazmín, Rosas, Canela, Clavo de Olor y más (consulta)</li>
                                 <li style="margin-bottom: 10px;"><strong>Oleorresinas:</strong> Extractos de alta estabilidad como la Cúrcuma</li>
                                 <li style="margin-bottom: 10px;"><strong>Tinturas:</strong> Melena de León, Tabaco y Vainilla (Grado Gastronómico y Cosmético).</li>
                                 ${productosAdicionales}
@@ -98,6 +98,7 @@ const emailTemplates = [
                                 <span style="color: #666;">WhatsApp: 322 369 4572</span><br>
                                 <a href="https://neuroterp.com" style="color: #2dd4bf; text-decoration: none;">https://neuroterp.com</a>
                             </p>
+                           
                         </td>
                     </tr>
                     
